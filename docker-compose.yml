@@ -1,0 +1,40 @@
+version: '3.1'
+services:
+  mysql:
+    build: mysql
+    container_name: mysql-laravel
+    restart: always
+    platform: linux/amd64
+    environment: 
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: laravel
+      MYSQL_USER: user
+      MYSQL_PASSWORD: user
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/initdb:/docker-entrypoint-initdb.d
+    ports:
+      - 7071:3306
+  app:
+    build: laravel
+    container_name: app-laravel
+    volumes:
+      - ./laravel/src:/app
+    ports:
+      - 7072:8000
+    links:
+      - mysql
+      - cache
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    container_name: phpmyadmin-laravel
+    links:
+      - mysql
+    ports:
+      - 7073:80
+    environment:
+      - PMA_ARBITRARY=1
+  cache:
+    image: redis:3.0
+    ports:
+      - 7074:6379

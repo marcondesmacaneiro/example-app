@@ -1,0 +1,15 @@
+/laravel/src/node_modules
+/laravel/src/public/hot
+/laravel/src/public/storage
+/laravel/src/storage/*.key
+/laravel/src/vendor
+/.idea
+/.vscode
+/.vagrant
+Homestead.json
+Homestead.yaml
+npm-debug.log
+yarn-error.log
+/laravel/src/.env
+/laravel/src/.phpunit.result.cache
+/mysql/data
